@@ -14,12 +14,13 @@ from body import Error, errors, Response, Service
 from jobject import jobject
 from record.exceptions import RecordDuplicate
 from tools import evaluate, without
+import undefined
 
 # Python imports
 from operator import itemgetter
 
 # Import records
-from records import experience, skill, skill_category
+from records import experience, skill, skill_category, static
 
 REPLACE_ME = '00000000-0000-0000-0000-000000000000'
 
@@ -194,7 +195,7 @@ class Primary(Service):
 
 		# Test if the updates are valid
 		if not oExperience.valid():
-			return Error(errors.DATA_FIELDS, o.errors)
+			return Error(errors.DATA_FIELDS, oExperience.errors)
 
 		# Save the record and store the result
 		bRes = oExperience.save(revision_info = { 'user' : REPLACE_ME })
@@ -215,13 +216,13 @@ class Primary(Service):
 		"""
 
 		# Request the records
-		lSkills = skill.SkillCategory.get(raw = True)
+		lExperience = experience.Experience.get(raw = True)
 
 		# Sort them by name
-		lSkills.sort(key = itemgetter('name'))
+		lExperience.sort(key = itemgetter('company'))
 
 		# Find and return the experiences
-		return Response(lSkills)
+		return Response(lExperience)
 
 	def skill_create(self, req: jobject) -> Response:
 		"""Skill (create)
@@ -365,7 +366,7 @@ class Primary(Service):
 
 		# Test if the updates are valid
 		if not oSkill.valid():
-			return Error(errors.DATA_FIELDS, o.errors)
+			return Error(errors.DATA_FIELDS, oSkill.errors)
 
 		# Save the record and store the result
 		bRes = oSkill.save(revision_info = { 'user' : REPLACE_ME })
@@ -386,7 +387,7 @@ class Primary(Service):
 		"""
 
 		# Request the records
-		lSkills = skill.SkillCategory.get(raw = True)
+		lSkills = skill.Skill.get(raw = True)
 
 		# Sort them by name
 		lSkills.sort(key = itemgetter('name'))
@@ -574,3 +575,185 @@ class Primary(Service):
 
 		# Return the changes or False
 		return Response(bRes and dChanges or False)
+
+	def static_create(self, req: jobject) -> Response:
+		"""Static (create)
+
+		Creates a new static page in the system
+
+		Arguments:
+			req (jobject): Contains data and session if available
+
+		Returns:
+			Services.Response
+		"""
+
+		# If we are missing the record
+		if 'record' not in req.data:
+			return Error(errors.DATA_FIELDS, [ [ 'record', 'missing' ] ])
+
+		# If the record is not a dict
+		if not isinstance(req.data.record, dict):
+			return Error(errors.DATA_FIELDS, [ [ 'record', 'invalid' ] ])
+
+		# Create and validate the record
+		try:
+			sID = static.Static.add(
+				req.data.record,
+				revision_info = { 'user': REPLACE_ME }
+			)
+		except ValueError as e:
+			return Error(errors.DATA_FIELDS, e.args)
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
+
+		# Return the result
+		return Response(sID)
+
+	def static_delete(self, req: jobject) -> Response:
+		"""Static (delete)
+
+		Deletes an existing static page from the system
+
+		Arguments:
+			req (jobject): Contains data and session if available
+
+		Returns:
+			Services.Response
+		"""
+
+		# Check the ID
+		if '_id' not in req.data:
+			return Error(errors.DATA_FIELDS, [ [ '_id', 'missing' ] ])
+
+		# If the static doesn't exist
+		if not static.Static.exists(req.data._id):
+			return Error(errors.DB_NO_RECORD, [ req.data._id, 'static' ])
+
+		# Delete the record
+		dRes = static.Static.remove(
+			req.data._id,
+			revision_info = { 'user': REPLACE_ME }
+		)
+
+		# If nothing was deleted
+		if dRes == None:
+			return Error(
+				errors.DB_DELETE_FAILED,
+				[ req.data._id, 'static' ]
+			)
+
+		# Return OK
+		return Response(dRes)
+
+	def static_read(self, req: jobject) -> Response:
+		"""Static (read)
+
+		Fetches and returns an existing static
+
+		Arguments:
+			req (jobject): Contains data and session if available
+
+		Returns:
+			Services.Response
+		"""
+
+		# If we got an ID
+		if '_id' in req.data:
+			_id = req.data._id
+			index = undefined
+
+		# Else if we got a key
+		elif 'key' in req.data:
+			_id = req.data.key
+			index = 'ui_key'
+
+		# Else
+		else:
+			return Error(errors.DATA_FIELDS, [ [ '_id', 'missing' ] ])
+
+		# Fetch the record
+		dStatic = static.Static.get(
+			_id,
+			index = index,
+			raw = True
+		)
+		if not dStatic:
+			return Error(errors.DB_NO_RECORD, [ _id, 'static' ])
+
+		# Return the record
+		return Response(dStatic)
+
+	def static_update(self, req: jobject) -> Response:
+		"""Static (update)
+
+		Updates an existing static
+
+		Arguments:
+			req (jobject): Contains data and session if available
+
+		Returns:
+			Services.Response
+		"""
+
+		# Check minimum fields
+		try: evaluate(req.data, [ '_id', 'record' ])
+		except ValueError as e:
+			return Error(
+				errors.DATA_FIELDS, [ [ k, 'missing' ] for k in e.args ])
+
+		# If the record is not a dict
+		if not isinstance(req.data.record, dict):
+			return Error(errors.DATA_FIELDS, [ [ 'record', 'invalid' ] ])
+
+		# Find the static record
+		oStatic = static.Static.get(req.data._id)
+		if not oStatic:
+			return Error(
+				errors.DB_NO_RECORD,
+				[ req.data._id, 'static' ]
+			)
+
+		# Remove any fields found that can't be altered by the user
+		without(
+			req.data.record,
+			[ '_id', '_created', '_updated', 'key' ],
+			True
+		)
+
+		# Update it using the record data sent
+		try:
+			dChanges = oStatic.update(req.data.record)
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
+
+		# Test if the updates are valid
+		if not oStatic.valid():
+			return Error(errors.DATA_FIELDS, oStatic.errors)
+
+		# Save the record and store the result
+		bRes = oStatic.save(revision_info = { 'user' : REPLACE_ME })
+
+		# Return the changes or False
+		return Response(bRes and dChanges or False)
+
+	def statics_read(self, req: jobject) -> Response:
+		"""Statics (read)
+
+		Fetches and returns all existing static records
+
+		Arguments:
+			req (jobject): Contains data and session if available
+
+		Returns:
+			Services.Response
+		"""
+
+		# Request the records
+		lStatic = static.Static.get(raw = True)
+
+		# Sort them by name
+		lStatic.sort(key = itemgetter('key'))
+
+		# Find and return the statics
+		return Response(lStatic)

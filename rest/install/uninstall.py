@@ -16,7 +16,7 @@ import record_mysql
 import record_redis
 
 # Records
-from records import experience, skill, skill_category
+from records import experience, skill, skill_category, static
 
 # Only run if called directly
 if __name__ == '__main__':
@@ -34,6 +34,7 @@ if __name__ == '__main__':
 	experience.Experience.uninstall()
 	skill.Skill.uninstall()
 	skill_category.SkillCategory.uninstall()
+	static.Static.uninstall()
 
 	# Add the DB
 	record_mysql.db_drop(

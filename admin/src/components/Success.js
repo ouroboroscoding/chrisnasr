@@ -4,6 +4,7 @@
  * Handles displaying a temporary success message
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
+ * @copyright Ouroboros Coding Inc.
  * @created 2023-01-17
  */
 

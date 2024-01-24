@@ -4,7 +4,8 @@
  * Primary entry into Admin site
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
- * @created 2023-01-17
+ * @copyright Ouroboros Coding Inc.
+ * @created 2024-01-23
  */
 
 // Init body
@@ -39,6 +40,10 @@ import Success from 'components/Success';
 import Testing from 'components/Testing';
 
 // Site pages
+import Categories from 'components/pages/Categories';
+import Experience from 'components/pages/Experience';
+import Skills from 'components/pages/Skills';
+import Static from 'components/pages/Static';
 
 // Add default onCopyKey methods to Results
 Results.setOnCopyKey(() => {
@@ -68,8 +73,21 @@ export default function Site(props) {
 					<Success />
 					<Errors />
 					<Header />
-					<Box className="">
-						Admin
+					<Box className="flexDynamic">
+						<Routes>
+							<Route path="/categories" element={
+								<Categories />
+							} />
+							<Route path="/experience" element={
+								<Experience />
+							} />
+							<Route path="/skills" element={
+								<Skills />
+							} />
+							<Route path="/static" element={
+								<Static />
+							} />
+						</Routes>
 					</Box>
 				</BrowserRouter>
 			</ThemeProvider>

@@ -16,7 +16,7 @@ import record_mysql
 import record_redis
 
 # Records
-from records import experience, skill, skill_category
+from records import experience, skill, skill_category, static
 
 # Only run if called directly
 if __name__ == '__main__':
@@ -39,3 +39,4 @@ if __name__ == '__main__':
 	experience.Experience.install()
 	skill.Skill.install()
 	skill_category.SkillCategory.install()
+	static.Static.install()

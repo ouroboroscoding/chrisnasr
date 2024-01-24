@@ -120,10 +120,28 @@ export default function Header(props) {
 			>
 				<Box className="flexRows">
 					<List className="flexDynamic">
-						<Link to="/intro" onClick={menuOff}>
-							<ListItemButton selected={location.pathname === '/intro'}>
-								<ListItemIcon><i className="fa-solid fa-diagram-project" /></ListItemIcon>
-								<ListItemText primary="Intro" />
+						<Link to="/static" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/static'}>
+								<ListItemIcon><i className="fa-solid fa-file-lines" /></ListItemIcon>
+								<ListItemText primary="Static Pages" />
+							</ListItemButton>
+						</Link>
+						<Link to="/experience" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/experience'}>
+								<ListItemIcon><i className="fa-solid fa-building" /></ListItemIcon>
+								<ListItemText primary="Experience" />
+							</ListItemButton>
+						</Link>
+						<Link to="/categories" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/categories'}>
+								<ListItemIcon><i className="fa-solid fa-layer-group" /></ListItemIcon>
+								<ListItemText primary="Skill Categories" />
+							</ListItemButton>
+						</Link>
+						<Link to="/skills" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/skills'}>
+								<ListItemIcon><i className="fa-solid fa-star" /></ListItemIcon>
+								<ListItemText primary="Skills" />
 							</ListItemButton>
 						</Link>
 					</List>

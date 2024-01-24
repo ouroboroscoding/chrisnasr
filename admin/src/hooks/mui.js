@@ -4,6 +4,7 @@
  * Hooks for dealing with MaterialUI
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
+ * @copyright Ouroboros Coding Inc.
  * @created 2023-01-17
  */
 

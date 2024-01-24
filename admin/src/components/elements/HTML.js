@@ -4,6 +4,7 @@
  * Create a new, paused, campaign
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
+ * @copyright Ouroboros Coding Inc.
  * @created 2024-01-20
  */
 

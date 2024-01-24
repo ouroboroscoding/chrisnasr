@@ -4,6 +4,7 @@
  * Initialises body module by setting domain and adding callbacks
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
+ * @copyright Ouroboros Coding Inc.
  * @created 2023-01-17
  */
 
