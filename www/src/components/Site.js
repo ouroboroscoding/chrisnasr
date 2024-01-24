@@ -4,6 +4,7 @@
  * Primary entry into Admin site
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
+ * @copyright Ouroboros Coding Inc.
  * @created 2024-01-23
  */
 
@@ -13,18 +14,29 @@ import 'body_init';
 // CSS
 import '../sass/site.scss';
 
-// Ouroboros modules
-import events from '@ouroboros/events';
-
 // NPM modules
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { wrapComponent } from 'react-snackbar-alert';
+
+// Material UI
+import Box from '@mui/material/Box';
+import { ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material/styles';
+
+// CSS Theme
+import Theme from 'components/Theme'
 
 // Site component modules
 import Errors from 'components/Errors';
+import Header from 'components/Header';
 import Network from 'components/Network';
+import Success from 'components/Success';
 import Testing from 'components/Testing';
+
+// Site pages
+import Experience from 'components/pages/Experience';
+import Skills from 'components/pages/Skills';
+import Static from 'components/pages/Static';
 
 /**
  * Site
@@ -38,33 +50,32 @@ import Testing from 'components/Testing';
  */
 export default function Site(props) {
 
-	// Startup effect
-	useEffect(() => {
-
-		// Subscribe to events
-		/*events.get('success').subscribe(msg => {
-			props.createSnackbar({
-				message: msg,
-				dismissable: true,
-				pauseOnHover: true,
-				progressBar: true,
-				sticky: false,
-				theme: 'success',
-				timeout: 3000
-			});
-		});*/
-	}, []);
-
 	return (
-		<BrowserRouter>
-			{'development' === process.env.NODE_ENV &&
-				<Testing />
-			}
-			<Network />
-			<Errors />
-			<div className="">
-				ChrisNasr.com
-			</div>
-		</BrowserRouter>
+		<StyledEngineProvider injectFirst={true}>
+			<ThemeProvider theme={Theme}>
+				<BrowserRouter>
+					{'development' === process.env.NODE_ENV &&
+						<Testing />
+					}
+					<Network />
+					<Success />
+					<Errors />
+					<Header />
+					<Box id="content" className="flexDynamic">
+						<Routes>
+							<Route path="/experience" element={
+								<Experience />
+							} />
+							<Route path="/skills" element={
+								<Skills />
+							} />
+							<Route path="/:key" element={
+								<Static />
+							} />
+						</Routes>
+					</Box>
+				</BrowserRouter>
+			</ThemeProvider>
+		</StyledEngineProvider>
 	);
-};
+}

@@ -12,6 +12,10 @@
 // NPM modules
 import React, { useEffect, useState } from 'react';
 
+// Material UI components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 /**
  * Network
  *
@@ -45,8 +49,8 @@ export default function Network(props) {
 
 	// Else, return an error box
 	return (
-		<div id="offline">
-			<p>You are not online! Please check your network connection</p>
-		</div>
+		<Box id="offline">
+			<Typography>You are not online! Please check your network connection</Typography>
+		</Box>
 	);
 }

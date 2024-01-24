@@ -17,6 +17,10 @@ import { afindi, isObject } from '@ouroboros/tools';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+// Material UI
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 /**
  * Errors
  *
@@ -54,7 +58,7 @@ export default function Errors(props) {
 		if(isObject(text)) {
 			oError.content = <pre>{JSON.stringify(text, null, 4)}</pre>
 		} else {
-			oError.content = text.split('\n').map((s,i) => <p key={i}>{s}</p>);
+			oError.content = text.split('\n').map((s,i) => <Typography key={i}>{s}</Typography>);
 		}
 
 		// Add the text with a new unique ID
@@ -86,17 +90,17 @@ export default function Errors(props) {
 
 	// Display the errors
 	return (
-		<div id="errors">
+		<Box id="errors">
 			{errors.map(o =>
-				<div key={o._id} className="error flexColumns">
-					<div className="text flexDynamic">
+				<Box key={o._id} className="error flexColumns">
+					<Box className="text flexDynamic">
 						{o.content}
-					</div>
-					<p className="close flexStatic">
+					</Box>
+					<Typography className="close flexStatic">
 						<i className="fas fa-times-circle" onClick={() => remove(o._id)} />
-					</p>
-				</div>
+					</Typography>
+				</Box>
 			)}
-		</div>
+		</Box>
 	);
 }

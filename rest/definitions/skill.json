@@ -15,6 +15,11 @@
 		"__optional__": true
 	},
 
+	"_order": {
+		"__type__": "uint",
+		"__maximum__": 255
+	},
+
 	"category": {
 		"__type__": "uuid"
 	},

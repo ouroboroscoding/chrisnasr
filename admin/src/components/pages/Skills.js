@@ -12,6 +12,7 @@
 import body, { errors } from '@ouroboros/body';
 import { Tree } from '@ouroboros/define';
 import { Form, Options, Results } from '@ouroboros/define-mui';
+import { pathToTree } from '@ouroboros/tools';
 
 // NPM modules
 import React, { useEffect, useState } from 'react';
@@ -36,13 +37,16 @@ const CategoriesOptions = new Options.Custom();
 // Generate the Tree
 const SkillTree = new Tree(SkillDef, {
 	__ui__: {
-		__create__: [ 'category', 'name', 'level', 'years' ],
-		__update__: [ 'category', 'name', 'level', 'years' ],
-		__results__: [ '_id', '_created', '_updated', 'category', 'name' ]
+		__create__: [ 'category', '_order', 'name', 'level', 'years' ],
+		__update__: [ 'category', '_order', 'name', 'level', 'years' ],
+		__results__: [
+			'_id', '_created', '_updated', '_order', 'category', 'name'
+		]
 	},
 
 	_id: { __ui__: { __title__: 'Unique ID' } },
 	_updated: { __ui__: { __title__: 'Last Updated' } },
+	_order: { __ui__: { __title__: 'Order'} },
 	category: { __ui__: {
 		__options__: CategoriesOptions,
 		__type__: 'select'
@@ -53,6 +57,8 @@ const SkillTree = new Tree(SkillDef, {
 // Constants
 const GRID_SIZES = {
 	__default__: { xs: 12, md: 6, lg: 4 },
+	category: { xs: 8, sm: 9, lg: 3 },
+	_order: { xs: 4, sm: 3, lg: 1 },
 	name: { xs: 12, md: 6, lg: 4 },
 	level: { xs: 6, md: 3, lg: 2 },
 	years: { xs: 6, md: 3, lg: 2 }
@@ -115,7 +121,16 @@ export default function Skills(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
+				} else if(error.code === errors.DB_DUPLICATE) {
+					if(error.msg[1] === 'ui_name') {
+						reject({ name: 'Already exists' });
+					}
 				} else {
 					Message.error(error);
 				}
@@ -176,7 +191,16 @@ export default function Skills(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
+				} else if(error.code === errors.DB_DUPLICATE) {
+					if(error.msg[1] === 'ui_name') {
+						reject({ name: 'Already exists' });
+					}
 				} else {
 					Message.error(error);
 				}

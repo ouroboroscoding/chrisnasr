@@ -1,0 +1,21 @@
+#header {
+	padding: 10px 10px 10px 15px;
+
+	i {
+		font-size: 1.1rem;
+	}
+
+	.title {
+
+		font-size: 3rem;
+		font-weight: bold;
+		margin-top: 3px;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	#header {
+		padding: 10px;
+		margin-left: 300px;
+	}
+}

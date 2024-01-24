@@ -1,0 +1,15 @@
+#skills {
+	max-width: 768px;
+
+	.category {
+		border-top: 1px solid $cBlue;
+		margin: 20px 0;
+		padding-top: 5px;
+
+		.header {
+			font-size: 1.2rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+	}
+}

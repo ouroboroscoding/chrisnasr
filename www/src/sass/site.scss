@@ -1,4 +1,23 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+/* reusable values */
+@import 'variables';
+
+/* common */
 @import 'reset';
 @import 'flex';
+@import 'elements';
+@import 'generic';
 
+/* Material UI fixes */
+@import 'materialui';
+
+/* IDs */
 @import 'ids';
+
+@media screen and (min-width: 600px) {
+	#content {
+		margin-left: 300px;
+	}
+}

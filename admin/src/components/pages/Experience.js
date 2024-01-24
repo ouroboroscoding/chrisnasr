@@ -12,6 +12,7 @@
 import body, { errors } from '@ouroboros/body';
 import { Tree } from '@ouroboros/define';
 import { Form, Results } from '@ouroboros/define-mui';
+import { pathToTree } from '@ouroboros/tools';
 
 // NPM modules
 import React, { useEffect, useState } from 'react';
@@ -114,7 +115,15 @@ export default function Experience(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else if(oErr.Experience) {
+						reject(oErr.Experience);
+					} else {
+						console.log(oErr);
+						Message.error(error);
+					}
 				} else {
 					Message.error(error);
 				}
@@ -175,7 +184,15 @@ export default function Experience(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else if(oErr.Experience) {
+						reject(oErr.Experience);
+					} else {
+						console.log(oErr);
+						Message.error(error);
+					}
 				} else {
 					Message.error(error);
 				}
@@ -218,7 +235,8 @@ export default function Experience(props) {
 					gridSizes={GRID_SIZES}
 					onDelete={resultRemove}
 					onUpdate={updateSubmit}
-					orderBy="company"
+					order="desc"
+					orderBy="from"
 					tree={ExperienceTree}
 				/>
 			}

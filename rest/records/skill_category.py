@@ -43,7 +43,7 @@ SkillCategory = Storage(
 		'__mysql__': {
 			'charset': 'utf8mb4',
 			'collate': 'utf8mb4_unicode_ci',
-			'create': [ '_created', '_updated', 'name' ],
+			'create': [ '_created', '_updated', '_order', 'name' ],
 			'db': config.mysql.db('chrisnasr'),
 			'indexes': {
 				'ui_name': {
@@ -61,6 +61,9 @@ SkillCategory = Storage(
 		} },
 		'_updated': { '__mysql__': {
 			'opts': 'not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'
+		} },
+		'_order': { '__mysql__': {
+			"type": "tinyint unsigned"
 		} }
 	}
 )

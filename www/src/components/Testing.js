@@ -4,17 +4,17 @@
  * Shows a testing component with site info
  *
  * @author Chris Nasr <chris@ouroboroscoding.com>
- * @copyright DevMedika Inc.
+ * @copyright Ouroboros Coding Inc.
  * @created 2023-05-19
  */
 
 // NPM modules
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Project hooks
-import { useWidth } from 'hooks/width';
+// Material UI
+import { useWidth } from 'hooks/mui';
 
 /**
  * Testing
@@ -54,6 +54,4 @@ export default function Testing(props) {
 }
 
 // Valid props
-Testing.propTypes = {
-	locale: PropTypes.string.isRequired
-}
+Testing.propTypes = {}

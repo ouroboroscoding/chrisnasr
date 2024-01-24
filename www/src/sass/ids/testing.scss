@@ -1,11 +1,12 @@
 #testing {
 	bottom: 0;
-	color: #ffc926;
-	font-weight: bold;
+	color: $cWarning;
+	left: 0;
 	padding: 10px;
 	position: absolute;
 	right: 0;
-	z-index: 1000;
+	font-weight: bold;
+	z-index: 100;
 
 	button {
 		border-radius: 10px;
@@ -19,7 +20,7 @@
 	}
 
 	span.link {
-		color: #fff;
+		color: $cWhite;
 	}
 }
 
@@ -29,5 +30,4 @@
 
 #testing.open {
 	background-color: #00000090;
-	left: 0;
 }

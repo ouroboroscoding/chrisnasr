@@ -12,6 +12,7 @@
 import body, { errors } from '@ouroboros/body';
 import { Tree } from '@ouroboros/define';
 import { Form, Results } from '@ouroboros/define-mui';
+import { pathToTree } from '@ouroboros/tools';
 
 // NPM modules
 import React, { useEffect, useState } from 'react';
@@ -101,7 +102,12 @@ export default function Static(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
 				} else {
 					Message.error(error);
 				}
@@ -162,7 +168,12 @@ export default function Static(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
 				} else {
 					Message.error(error);
 				}

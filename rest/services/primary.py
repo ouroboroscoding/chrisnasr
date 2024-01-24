@@ -73,6 +73,16 @@ class Primary(Service):
 		if not isinstance(req.data.record, dict):
 			return Error(errors.DATA_FIELDS, [ [ 'record', 'invalid' ] ])
 
+		# If we have a 'to'
+		if 'to' in req.data.record and req.data.record['to']:
+
+			# If it's lower than the from
+			if req.data.record['to'] < req.data.record['from']:
+				return Error(
+					errors.DATA_FIELDS,
+					[ [ 'record.to', 'if set, must be higher than `from`' ] ]
+				)
+
 		# Create and validate the record
 		try:
 			sID = experience.Experience.add(
@@ -80,7 +90,7 @@ class Primary(Service):
 				revision_info = { 'user': REPLACE_ME }
 			)
 		except ValueError as e:
-			return Error(errors.DATA_FIELDS, e.args)
+			return Error(errors.DATA_FIELDS, e.args[0])
 		except RecordDuplicate as e:
 			return Error(errors.DB_DUPLICATE, e.args)
 
@@ -188,17 +198,27 @@ class Primary(Service):
 		)
 
 		# Update it using the record data sent
-		try:
-			dChanges = oExperience.update(req.data.record)
-		except RecordDuplicate as e:
-			return Error(errors.DB_DUPLICATE, e.args)
+		dChanges = oExperience.update(req.data.record)
 
 		# Test if the updates are valid
 		if not oExperience.valid():
 			return Error(errors.DATA_FIELDS, oExperience.errors)
 
+		# If we have a 'to'
+		if 'to' in oExperience and oExperience['to']:
+
+			# If it's lower than the from
+			if oExperience['to'] < oExperience['from']:
+				return Error(
+					errors.DATA_FIELDS,
+					[ [ 'record.to', 'if set, must be higher than `from`' ] ]
+				)
+
 		# Save the record and store the result
-		bRes = oExperience.save(revision_info = { 'user' : REPLACE_ME })
+		try:
+			bRes = oExperience.save(revision_info = { 'user' : REPLACE_ME })
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
 
 		# Return the changes or False
 		return Response(bRes and dChanges or False)
@@ -219,7 +239,7 @@ class Primary(Service):
 		lExperience = experience.Experience.get(raw = True)
 
 		# Sort them by name
-		lExperience.sort(key = itemgetter('company'))
+		lExperience.sort(key = itemgetter('from'), reverse = True)
 
 		# Find and return the experiences
 		return Response(lExperience)
@@ -251,7 +271,7 @@ class Primary(Service):
 				revision_info = { 'user': REPLACE_ME }
 			)
 		except ValueError as e:
-			return Error(errors.DATA_FIELDS, e.args)
+			return Error(errors.DATA_FIELDS, e.args[0])
 		except RecordDuplicate as e:
 			return Error(errors.DB_DUPLICATE, e.args)
 
@@ -359,17 +379,17 @@ class Primary(Service):
 		)
 
 		# Update it using the record data sent
-		try:
-			dChanges = oSkill.update(req.data.record)
-		except RecordDuplicate as e:
-			return Error(errors.DB_DUPLICATE, e.args)
+		dChanges = oSkill.update(req.data.record)
 
 		# Test if the updates are valid
 		if not oSkill.valid():
 			return Error(errors.DATA_FIELDS, oSkill.errors)
 
 		# Save the record and store the result
-		bRes = oSkill.save(revision_info = { 'user' : REPLACE_ME })
+		try:
+			bRes = oSkill.save(revision_info = { 'user' : REPLACE_ME })
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
 
 		# Return the changes or False
 		return Response(bRes and dChanges or False)
@@ -443,7 +463,7 @@ class Primary(Service):
 				revision_info = { 'user': REPLACE_ME }
 			)
 		except ValueError as e:
-			return Error(errors.DATA_FIELDS, e.args)
+			return Error(errors.DATA_FIELDS, e.args[0])
 		except RecordDuplicate as e:
 			return Error(errors.DB_DUPLICATE, e.args)
 
@@ -477,7 +497,7 @@ class Primary(Service):
 		if lSkills:
 			return Error(
 				errors.DB_REFERENCES,
-				[ req.data.skill_category, 'skill_category', 'skill' ]
+				[ req.data._id, 'skill_category', 'skill' ]
 			)
 
 		# Delete the record
@@ -561,17 +581,17 @@ class Primary(Service):
 		)
 
 		# Update it using the record data sent
-		try:
-			dChanges = oCategory.update(req.data.record)
-		except RecordDuplicate as e:
-			return Error(errors.DB_DUPLICATE, e.args)
+		dChanges = oCategory.update(req.data.record)
 
 		# Test if the updates are valid
 		if not oCategory.valid():
 			return Error(errors.DATA_FIELDS, oCategory.errors)
 
 		# Save the record and store the result
-		bRes = oCategory.save(revision_info = { 'user' : REPLACE_ME })
+		try:
+			bRes = oCategory.save(revision_info = { 'user' : REPLACE_ME })
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
 
 		# Return the changes or False
 		return Response(bRes and dChanges or False)
@@ -603,7 +623,7 @@ class Primary(Service):
 				revision_info = { 'user': REPLACE_ME }
 			)
 		except ValueError as e:
-			return Error(errors.DATA_FIELDS, e.args)
+			return Error(errors.DATA_FIELDS, e.args[0])
 		except RecordDuplicate as e:
 			return Error(errors.DB_DUPLICATE, e.args)
 
@@ -722,17 +742,17 @@ class Primary(Service):
 		)
 
 		# Update it using the record data sent
-		try:
-			dChanges = oStatic.update(req.data.record)
-		except RecordDuplicate as e:
-			return Error(errors.DB_DUPLICATE, e.args)
+		dChanges = oStatic.update(req.data.record)
 
 		# Test if the updates are valid
 		if not oStatic.valid():
 			return Error(errors.DATA_FIELDS, oStatic.errors)
 
 		# Save the record and store the result
-		bRes = oStatic.save(revision_info = { 'user' : REPLACE_ME })
+		try:
+			bRes = oStatic.save(revision_info = { 'user' : REPLACE_ME })
+		except RecordDuplicate as e:
+			return Error(errors.DB_DUPLICATE, e.args)
 
 		# Return the changes or False
 		return Response(bRes and dChanges or False)

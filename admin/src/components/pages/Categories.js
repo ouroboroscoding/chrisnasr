@@ -12,6 +12,7 @@
 import body, { errors } from '@ouroboros/body';
 import { Tree } from '@ouroboros/define';
 import { Form, Results } from '@ouroboros/define-mui';
+import { pathToTree } from '@ouroboros/tools';
 
 // NPM modules
 import React, { useEffect, useState } from 'react';
@@ -32,19 +33,21 @@ import CategoryDef from 'definitions/skill_category';
 // Generate the Tree
 const CategoryTree = new Tree(CategoryDef, {
 	__ui__: {
-		__create__: [ 'name' ],
-		__update__: [ 'name' ],
-		__results__: [ '_id', '_created', '_updated', 'name' ]
+		__create__: [ '_order', 'name' ],
+		__update__: [ '_order', 'name' ],
+		__results__: [ '_id', '_created', '_updated', '_order', 'name' ]
 	},
 
 	_id: { __ui__: { __title__: 'Unique ID' } },
 	_updated: { __ui__: { __title__: 'Last Updated' } },
+	_order: { __ui__: { __title__: 'Order'} },
 	name: { __ui__: { __title__: 'Category Name' } }
 });
 
 // Constants
 const GRID_SIZES = {
-	__default__: { xs: 12, md: 6 }
+	__default__: { xs: 12, sm: 9, lg: 10, xl: 11 },
+	_order: { xs: 12, sm: 3, lg: 2, xl: 1 }
 };
 
 /**
@@ -98,7 +101,16 @@ export default function Categories(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
+				} else if(error.code === errors.DB_DUPLICATE) {
+					if(error.msg[1] === 'ui_name') {
+						reject({ name: 'Already exists' });
+					}
 				} else {
 					Message.error(error);
 				}
@@ -126,7 +138,13 @@ export default function Categories(props) {
 					);
 				}
 			},
-			Message.error
+			error => {
+				if(error.code === errors.DB_REFERENCES) {
+					Message.error('The category can not be deleted because there are still skills that are associated with it. Delete or re-categories the skills to continue with this operation.');
+				} else {
+					Message.error(error);
+				}
+			}
 		);
 	}
 
@@ -157,7 +175,16 @@ export default function Categories(props) {
 			}, error => {
 				console.error(error);
 				if(error.code === errors.DATA_FIELDS) {
-					reject(error.msg);
+					const oErr = pathToTree(error.msg);
+					if(oErr.record) {
+						reject(oErr.record);
+					} else {
+						Message.error(error);
+					}
+				} else if(error.code === errors.DB_DUPLICATE) {
+					if(error.msg[1] === 'ui_name') {
+						reject({ name: 'Already exists' });
+					}
 				} else {
 					Message.error(error);
 				}
