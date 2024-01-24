@@ -1,0 +1,28 @@
+{
+	"body": {
+		"rest": {
+			"allowed": [ "chrisnasr.local", "admin.chrisnasr.local" ]
+		}
+	},
+
+	"brain": {
+		"user_default_locale": "en-CA",
+		"internal": {
+			"salt": "RjwQfDeAsYdzpZLT"
+		},
+		"verbose": true
+	},
+
+	"mysql": {
+		"primary": {
+			"passwd": "mysql",
+			"user": "root"
+		},
+		"tz": "+05:00",
+		"verbose": false
+	},
+
+	"primary": {
+		"verbose": true
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"__defaults__": {
+		"additional_files": [
+			"config.json",
+			"config.phoenix.json"
+		],
+		"python": "/home/bast/.venv/contact/bin/python",
+		"mode": "module",
+		"unbuffered": true,
+		"verbose": false
+	},
+
+	"admin": {
+		"command": "nodes.admin"
+	},
+
+	"unsubscribe": {
+		"command": "nodes.unsubscribe",
+		"additional_files": [
+			"templates/unsubscribe/index.html.jinja",
+			"templates/unsubscribe/response.html.jinja"
+		]
+	}
+}

@@ -1,0 +1,74 @@
+{
+	"body": {
+		"rest": {
+			"allowed": [ "contact.local" ],
+			"default": {
+				"domain": "localhost",
+				"host": "0.0.0.0",
+				"port": 9000,
+				"protocol": "http",
+				"workers": 1
+			},
+			"services": {
+				"primary": {"port": 10}
+			},
+			"verbose": true
+		}
+	},
+
+	"brain": {
+		"cache": {
+			"redis": "session",
+			"ttl": 0
+		},
+		"data": "./.data",
+		"internal": {
+			"redis": "session",
+			"salt": "0123456789abcdef",
+			"ttl": 10
+		},
+		"portals": {
+			"_": { "ttl": 86400 }
+		},
+		"records": "primary",
+		"user_default_locale": "en-US"
+	},
+
+	"memory": {
+		"redis": "session"
+	},
+
+	"mysql": {
+		"primary": {
+			"charset": "utf8",
+			"host": "localhost",
+			"passwd": "",
+			"port": 3306,
+			"user": "mysql"
+		},
+		"db": "chrisnasr",
+		"tz": "+00:00"
+	},
+
+	"primary": {
+		"verbose": true
+	},
+
+	"records": {
+		"cache": {
+			"redis": "records",
+			"ttl": 0
+		}
+	},
+
+	"redis": {
+		"session": {
+			"host": "localhost",
+			"port": 6379
+		},
+		"records": {
+			"host": "localhost",
+			"port": 6379
+		}
+	}
+}

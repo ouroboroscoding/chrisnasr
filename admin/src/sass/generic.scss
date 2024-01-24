@@ -1,0 +1,51 @@
+.actions {
+	text-align: right;
+}
+
+.fakeMuiLabel {
+	color: rgba(0, 0, 0, 0.6);
+	display: block;
+	line-height: 1.4375em;
+	letter-spacing: 0.00938em;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	transform-origin: bottom left;
+	-webkit-transform: translate(14px, 1px) scale(0.75);
+	-moz-transform: translate(14px, 1px) scale(0.75);
+	-ms-transform: translate(14px, 1px) scale(0.75);
+	transform: translate(14px, 1px) scale(0.75);
+	z-index: 1;
+}
+
+.field {
+	.MuiInputBase-root, .MuiFormControl-root {
+		width: 100%;
+	}
+}
+
+.field__created, .field__updated {
+	width: 175px;
+}
+
+.padding {
+	padding: 10px;
+}
+
+.pageHeader {
+	margin-bottom: 20px;
+
+	button {
+		margin-left: 10px;
+	}
+
+	i.fa-solid {
+		font-size: 2rem;
+	}
+
+	.open {
+		i.fa-solid {
+			color: $cOpen
+		}
+	}
+}

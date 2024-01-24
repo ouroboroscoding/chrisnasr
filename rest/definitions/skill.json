@@ -1,0 +1,36 @@
+{
+	"__name__": "Skill",
+
+	"_id": {
+		"__type__": "uuid"
+	},
+
+	"_created": {
+		"__type__": "timestamp",
+		"__optional__": true
+	},
+
+	"_updated": {
+		"__type__": "timestamp",
+		"__optional__": true
+	},
+
+	"category": {
+		"__type__": "uuid"
+	},
+
+	"name": {
+		"__type__": "string",
+		"__maximum__": 32
+	},
+
+	"level": {
+		"__type__": "uint",
+		"__minumum__": 1,
+		"__maximum__": 5
+	},
+
+	"years": {
+		"__type__": "uint"
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"__name__": "Experience",
+
+	"_id": {
+		"__type__": "uuid"
+	},
+
+	"_created": {
+		"__type__": "timestamp",
+		"__optional__": true
+	},
+
+	"_updated": {
+		"__type__": "timestamp",
+		"__optional__": true
+	},
+
+	"company": {
+		"__type__": "string",
+		"__maximum__": 64
+	},
+
+	"url": {
+		"__type__": "string",
+		"__maximum__": 32,
+		"__optional__": true
+	},
+
+	"location": {
+		"__type__": "string",
+		"__maximum__": 64
+	},
+
+	"title": {
+		"__type__": "string",
+		"__maximum__": 64
+	},
+
+	"from": {
+		"__type__": "string",
+		"__maximum__": 16
+	},
+
+	"to": {
+		"__type__": "string",
+		"__maximum__": 16
+	},
+
+	"description": {
+		"__type__": "string",
+		"__maximum__": 2000
+	}
+}
