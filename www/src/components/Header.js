@@ -202,9 +202,19 @@ export default function Header(props) {
 									<ListItemText primary="Define" />
 								</ListItemButton>
 							</Link>
-							<Link to="/define" onClick={menuOff}>
-								<ListItemButton selected={location.pathname === '/define'}>
+							<Link to="/define-mui" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/define-mui'}>
+									<ListItemText primary="Define MUI" />
+								</ListItemButton>
+							</Link>
+							<Link to="/body" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/body'}>
 									<ListItemText primary="Body" />
+								</ListItemButton>
+							</Link>
+							<Link to="/record" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/record'}>
+									<ListItemText primary="Record" />
 								</ListItemButton>
 							</Link>
 							<Link to="/fulllist" onClick={menuOff}>

@@ -1,0 +1,27 @@
+#static_this {
+
+	img {
+		border: 1px solid black;
+		float: right;
+		height: auto;
+		margin: 0 0 10px 10px;
+		padding: 2px;
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	#static_this {
+		img {
+			width: 300px;
+		}
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#static_this {
+		img {
+			width: auto;
+		}
+	}
+}
