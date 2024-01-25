@@ -63,6 +63,7 @@ class NodeHTML extends DefineNodeBase {
 					init={{
 						block_formats: 'Heading 1=h1; Heading 2=h2; Heading 3=h3; Paragraph=p; Preformatted=pre',
 						content_style: 'body { font-family: "Roboto","Helvetica","Arial",sans-serif; font-size: 1rem }',
+						convert_urls: false,
 						max_height: 600,
 						menubar: false,
 						plugins: ['advlist', 'emoticons', 'link', 'lists', 'code', 'autoresize', 'image'],
