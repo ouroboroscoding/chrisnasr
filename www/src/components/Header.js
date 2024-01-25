@@ -40,14 +40,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 export default function Header(props) {
 
+	// State
+	const [loading, loadingSet] = useState(0);
+	const [menu, menuSet] = useState(false);
+	const [subs, subsSet] = useState(safeLocalStorage.json('submenu', {}))
+
 	// Hooks
 	const smallScreen = useMediaQuery('(max-width:600px)');
 	const location = useLocation();
-
-	// State
-	const [loading, loadingSet] = useState(0);
-	const [menu, menuSet] = useState(!smallScreen);
-	const [subs, subsSet] = useState(safeLocalStorage.json('submenu', {}))
 
 	// Load effect
 	useEffect(() => {
@@ -130,8 +130,8 @@ export default function Header(props) {
 			>
 				<Box className="flexRows">
 					<List className="flexDynamic">
-						<Link to="/intro" onClick={menuOff}>
-							<ListItemButton selected={location.pathname === '/intro'}>
+						<Link to="/" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/'}>
 								<ListItemText primary="Intro" />
 							</ListItemButton>
 						</Link>

@@ -35,6 +35,7 @@ import Testing from 'components/Testing';
 
 // Site pages
 import Experience from 'components/pages/Experience';
+import Intro from 'components/pages/Intro';
 import Skills from 'components/pages/Skills';
 import Static from 'components/pages/Static';
 
@@ -71,6 +72,9 @@ export default function Site(props) {
 							} />
 							<Route path="/:key" element={
 								<Static />
+							} />
+							<Route path="/" element={
+								<Intro />
 							} />
 						</Routes>
 					</Box>
