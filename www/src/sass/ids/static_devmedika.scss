@@ -1,0 +1,35 @@
+#static_devmedika {
+
+	img {
+		border: 1px solid black;
+		height: auto;
+		padding: 5px;
+		width: 200px;
+	}
+
+	img.site {
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+
+	img.admin {
+		float: right;
+		margin: 10px 0 10px 10px;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	#static_devmedika {
+		img {
+			width: 300px;
+		}
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#static_devmedika {
+		img {
+			width: auto;
+		}
+	}
+}
