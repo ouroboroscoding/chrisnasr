@@ -19,7 +19,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 // Material UI
 import Box from '@mui/material/Box';
-//import Collapse from '@mui/material/Collapse';
+import Collapse from '@mui/material/Collapse';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -135,16 +135,86 @@ export default function Header(props) {
 								<ListItemText primary="Intro" />
 							</ListItemButton>
 						</Link>
+
 						<Link to="/this" onClick={menuOff}>
 							<ListItemButton selected={location.pathname === '/this'}>
 								<ListItemText primary="This Site" />
 							</ListItemButton>
 						</Link>
+
+						<Link to="/references" onClick={menuOff}>
+							<ListItemButton selected={location.pathname === '/references'}>
+								<ListItemText primary="References & Quotes" />
+							</ListItemButton>
+						</Link>
+
+						<ListItemButton onClick={ev => subMenuToggle('businesses')}>
+							<ListItemText primary="Businesses" />
+							{subs.types ? <i className="fa-solid fa-chevron-up" /> : <i className="fa-solid fa-chevron-down" />}
+						</ListItemButton>
+						<Collapse in={subs.businesses || false} timeout="auto" unmountOnExit>
+							<Link to="/ouroboros" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/ouroboros'}>
+									<ListItemText primary="Ouroboros Coding" />
+								</ListItemButton>
+							</Link>
+							<Link to="/servicesvp" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/servicesvp'}>
+									<ListItemText primary="Service SVP" />
+								</ListItemButton>
+							</Link>
+							<Link to="/devmedika" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/devmedika'}>
+									<ListItemText primary="DevMedika" />
+								</ListItemButton>
+							</Link>
+						</Collapse>
+
+						<ListItemButton onClick={ev => subMenuToggle('ostools')}>
+							<ListItemText primary="Open Source Tools" />
+							{subs.types ? <i className="fa-solid fa-chevron-up" /> : <i className="fa-solid fa-chevron-down" />}
+						</ListItemButton>
+						<Collapse in={subs.ostools || false} timeout="auto" unmountOnExit>
+							<Link to="/pylivedev" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/pylivedev'}>
+									<ListItemText primary="PyLiveDev" />
+								</ListItemButton>
+							</Link>
+							<Link to="/mds3" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/mds3'}>
+									<ListItemText primary="mds3" />
+								</ListItemButton>
+							</Link>
+						</Collapse>
+
+						<ListItemButton onClick={ev => subMenuToggle('oslibs')}>
+							<ListItemText primary="Open Source Libraries" />
+							{subs.types ? <i className="fa-solid fa-chevron-up" /> : <i className="fa-solid fa-chevron-down" />}
+						</ListItemButton>
+						<Collapse in={subs.oslibs || false} timeout="auto" unmountOnExit>
+							<Link to="/define" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/define'}>
+									<ListItemText primary="Define" />
+								</ListItemButton>
+							</Link>
+							<Link to="/define" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/define'}>
+									<ListItemText primary="Body" />
+								</ListItemButton>
+							</Link>
+							<Link to="/fulllist" onClick={menuOff}>
+								<ListItemButton selected={location.pathname === '/fulllist'}>
+									<ListItemText primary="Full List" />
+								</ListItemButton>
+							</Link>
+						</Collapse>
+
 						<Link to="/experience" onClick={menuOff}>
 							<ListItemButton selected={location.pathname === '/experience'}>
 								<ListItemText primary="Experience" />
 							</ListItemButton>
 						</Link>
+
 						<Link to="/skills" onClick={menuOff}>
 							<ListItemButton selected={location.pathname === '/skills'}>
 								<ListItemText primary="Skills" />

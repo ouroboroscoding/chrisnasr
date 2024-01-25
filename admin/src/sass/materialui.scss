@@ -19,6 +19,10 @@
 	}
 }
 
+.MuiListItemText-root {
+	color: $cBlue;
+}
+
 .MuiListItemButton-root.Mui-selected,
 .MuiListItemButton-root.Mui-selected:hover {
 	background-color: #5fa6c9;

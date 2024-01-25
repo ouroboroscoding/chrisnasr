@@ -2,12 +2,11 @@
 	padding: 10px 10px 10px 15px;
 
 	i {
-		font-size: 1.1rem;
+		font-size: 1.2rem;
 	}
 
 	.title {
-
-		font-size: 3rem;
+		font-size: 1.5rem;
 		font-weight: bold;
 		margin-top: 3px;
 	}
@@ -17,5 +16,13 @@
 	#header {
 		padding: 10px;
 		margin-left: 300px;
+
+		.title { font-size: 1.8rem }
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#header {
+		.title { font-size: 3rem }
 	}
 }

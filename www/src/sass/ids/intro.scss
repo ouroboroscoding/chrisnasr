@@ -1,0 +1,28 @@
+#intro {
+	font-size: 16px;
+
+	img {
+		aspect-ratio: 2 / 3;
+		border: 1px solid black;
+		float: left;
+		padding: 2px;
+		margin: 0 5px 5px 0;
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	#intro {
+		img {
+			width: 300px;
+		}
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#intro {
+		img {
+			width: 400px;
+		}
+	}
+}

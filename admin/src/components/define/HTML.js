@@ -65,7 +65,7 @@ class NodeHTML extends DefineNodeBase {
 						content_style: 'body { font-family: "Roboto","Helvetica","Arial",sans-serif; font-size: 1rem }',
 						max_height: 600,
 						menubar: false,
-						plugins: ['advlist', 'emoticons', 'link', 'lists', 'code', 'autoresize'],
+						plugins: ['advlist', 'emoticons', 'link', 'lists', 'code', 'autoresize', 'image'],
 						paste_as_text: true,
 						statusbar: false,
 						toolbar: 'undo redo | ' +
@@ -73,9 +73,8 @@ class NodeHTML extends DefineNodeBase {
 									'bold italic | ' +
 									'alignleft aligncenter alignright alignjustify | ' +
 									'bullist numlist outdent indent | ' +
-									'subscript superscript | ' +
-									'link emoticons | ' +
-									'removeformat | code'
+									'link image | ' +
+									'removeformat code'
 					}}
 
 				/>
