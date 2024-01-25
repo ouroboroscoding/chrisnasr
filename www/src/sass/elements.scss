@@ -49,3 +49,14 @@ sup {
 	font-size: smaller;
 	vertical-align: super;
 }
+
+ul {
+	list-style-type: disc;
+	margin-bottom: 10px;
+
+	li {
+		list-style: disc inside none;
+		display: list-item;
+		margin-left: 1em;
+	}
+}
