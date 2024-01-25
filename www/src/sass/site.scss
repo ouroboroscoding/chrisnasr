@@ -16,6 +16,10 @@
 /* IDs */
 @import 'ids';
 
+#content {
+	max-width: 768px;
+}
+
 @media screen and (min-width: 600px) {
 	#content {
 		margin-left: 300px;
