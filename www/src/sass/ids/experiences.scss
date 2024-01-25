@@ -3,17 +3,17 @@
 	.experience {
 		border-top: 1px solid $cBlue;
 		margin: 20px 0;
-		padding-top: 5px;
-
-		.header {
-			font-size: 1.1rem;
-			margin-bottom: 5px;
-		}
+		padding-top: 15px;
 
 		.title {
 			font-size: 1.1rem;
 			font-weight: bold;
 			margin-bottom: 5px;
+		}
+
+		.dateLocation {
+			font-size: 0.9rem;
+			margin-bottom: 10px;
 		}
 	}
 }

@@ -79,15 +79,17 @@ export default function Experience(props) {
 				<Typography>No Experiences found.</Typography>
 			) || results.map(o =>
 				<Box className="experience">
-					<Box className="header">
-						{convertDate(o.from)} - {o.to ? convertDate(o.to) : 'Present'},&nbsp;
+					<Box className="title">
+						{o.title} -&nbsp;
 						{o.url ?
 							<a href={o.url} target="_blank">{o.company}</a> :
 							o.company
-						},&nbsp;
+						}
+					</Box>
+					<Box className="dateLocation">
+						{convertDate(o.from)} / {o.to ? convertDate(o.to) : 'Present'} -&nbsp;
 						{o.location}
 					</Box>
-					<Box className="title">{o.title}</Box>
 					<Box className="description">
 						<div dangerouslySetInnerHTML={{
 							__html: o.description
