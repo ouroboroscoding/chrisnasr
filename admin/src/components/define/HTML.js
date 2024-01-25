@@ -75,7 +75,8 @@ class NodeHTML extends DefineNodeBase {
 									'alignleft aligncenter alignright alignjustify | ' +
 									'bullist numlist outdent indent | ' +
 									'link image | ' +
-									'removeformat code'
+									'removeformat code',
+						valid_elements: "*[*]"
 					}}
 
 				/>

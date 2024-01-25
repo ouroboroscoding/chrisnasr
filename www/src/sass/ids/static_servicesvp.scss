@@ -1,0 +1,36 @@
+#static_servicesvp {
+
+	img {
+		border: 1px solid black;
+		height: auto;
+		padding: 5px;
+		width: 200px;
+	}
+
+	img.employer {
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+
+	img.employee {
+		float: right;
+		margin: 0 0 10px 10px;
+	}
+}
+
+
+@media screen and (min-width: 600px) {
+	#static_servicesvp {
+		img {
+			width: 300px;
+		}
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#static_servicesvp {
+		img {
+			width: auto;
+		}
+	}
+}
