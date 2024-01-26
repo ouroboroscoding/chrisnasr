@@ -226,13 +226,13 @@ export default function Header(props) {
 
 						<Link to="/experience" onClick={menuOff}>
 							<ListItemButton selected={location.pathname === '/experience'}>
-								<ListItemText primary="Experience" />
+								<ListItemText primary="Work Experience" />
 							</ListItemButton>
 						</Link>
 
 						<Link to="/skills" onClick={menuOff}>
 							<ListItemButton selected={location.pathname === '/skills'}>
-								<ListItemText primary="Skills" />
+								<ListItemText primary="Technical Skills" />
 							</ListItemButton>
 						</Link>
 					</List>
