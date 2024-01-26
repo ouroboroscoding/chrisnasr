@@ -51,7 +51,8 @@
 	},
 
 	"primary": {
-		"verbose": true
+		"verbose": true,
+		"allow_editing": true
 	},
 
 	"records": {

@@ -11,6 +11,7 @@ __created__		= "2024-01-23"
 
 # Ouroboros imports
 from body import Error, errors, Response, Service
+from config import config
 from jobject import jobject
 from record.exceptions import RecordDuplicate
 from tools import evaluate, without
@@ -41,7 +42,10 @@ class Primary(Service):
 		Returns:
 			Primary
 		"""
-		pass
+
+		# Get the editing flag. Yes this is a cheap and dirty way to fix this
+		#	until I can be 100% sure Brain 2.0.0 works as expected
+		self._edit = config.primary.allow_editing(True)
 
 	def reset(self):
 		"""Reset
@@ -64,6 +68,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# If we are missing the record
 		if 'record' not in req.data:
@@ -108,6 +116,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check the ID
 		if '_id' not in req.data:
@@ -171,6 +183,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check minimum fields
 		try: evaluate(req.data, [ '_id', 'record' ])
@@ -256,6 +272,10 @@ class Primary(Service):
 			Services.Response
 		"""
 
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
+
 		# If we are missing the record
 		if 'record' not in req.data:
 			return Error(errors.DATA_FIELDS, [ [ 'record', 'missing' ] ])
@@ -289,6 +309,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check the ID
 		if '_id' not in req.data:
@@ -352,6 +376,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check minimum fields
 		try: evaluate(req.data, [ '_id', 'record' ])
@@ -448,6 +476,10 @@ class Primary(Service):
 			Services.Response
 		"""
 
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
+
 		# If we are missing the record
 		if 'record' not in req.data:
 			return Error(errors.DATA_FIELDS, [ [ 'record', 'missing' ] ])
@@ -481,6 +513,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check the ID
 		if '_id' not in req.data:
@@ -555,6 +591,10 @@ class Primary(Service):
 			Services.Response
 		"""
 
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
+
 		# Check minimum fields
 		try: evaluate(req.data, [ '_id', 'record' ])
 		except ValueError as e:
@@ -608,6 +648,10 @@ class Primary(Service):
 			Services.Response
 		"""
 
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
+
 		# If we are missing the record
 		if 'record' not in req.data:
 			return Error(errors.DATA_FIELDS, [ [ 'record', 'missing' ] ])
@@ -641,6 +685,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check the ID
 		if '_id' not in req.data:
@@ -715,6 +763,10 @@ class Primary(Service):
 		Returns:
 			Services.Response
 		"""
+
+		# Dirty fix until Brain 2.0.0 is checked for issues
+		if not self._edit:
+			return Error(errors.RIGHTS)
 
 		# Check minimum fields
 		try: evaluate(req.data, [ '_id', 'record' ])

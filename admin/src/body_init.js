@@ -34,6 +34,9 @@ body.onErrorCode((error, info) => {
 		case 209:
 			message = `${info.url} requires a session`;
 			break;
+		case 1000:
+			message = `You lack the rights to call ${info.url}`
+			break;
 		default:
 			console.error(error, info);
 			return false;
