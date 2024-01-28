@@ -3,6 +3,6 @@ body-oc==2.0.0
 config-oc==1.0.3
 define-oc==1.0.0
 email-smtp==1.0.0
-record-mysql==1.0.0
+record-mysql==1.0.1
 record-redis==1.0.0
 tools-oc==1.2.3
